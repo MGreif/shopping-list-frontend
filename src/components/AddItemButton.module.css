@@ -1,0 +1,22 @@
+.container {
+    display: flex;
+}
+
+.container > button {
+    margin-left: 2em;
+    flex: 1;
+    animation: slidein 0.3s ease-out;
+}
+
+.container > div {
+    flex: 18;
+}
+
+@keyframes slidein {
+    0% {
+        flex: 0;
+    }
+    100% {
+        flex: 1;
+    }
+}
