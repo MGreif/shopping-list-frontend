@@ -1,4 +1,3 @@
-import NewListButton from "../components/NewListButton"
 import NewListForm from "../components/NewListForm"
 
 export default () => {

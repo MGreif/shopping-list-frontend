@@ -33,6 +33,7 @@ export default () => {
         }: any) => (
           <>
           <InputWrapper label="Description" >
+            {console.log("description")}
               <Input
                 onChange={handleChange}
                 onBlur={handleBlur}

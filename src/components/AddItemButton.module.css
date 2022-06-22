@@ -20,3 +20,14 @@
         flex: 1;
     }
 }
+
+.autocompleteAdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.autocompleteAdd > span {
+  font-size: 2em;
+  color: #858585;
+}
