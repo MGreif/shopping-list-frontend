@@ -6,7 +6,7 @@ export const ListContext = React.createContext<IList>({
     editable: false,
     id: "",
     lastEdited: new Date(),
-    listItems: []
+    items: []
 })
 
 export const useListContext = () => {

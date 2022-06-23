@@ -62,6 +62,7 @@ export default ({ onAdd }: IAddItemButtonProps) => {
       if (!item) return
       onAdd(item)
       setSearchTerm("")
+      setItem(undefined)
     }
 
     return <InputWrapper label="Add Items">

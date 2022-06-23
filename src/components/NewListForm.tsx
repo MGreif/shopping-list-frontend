@@ -3,10 +3,12 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import classes from './NewListForm.module.css'
 import { GenericForm } from './GenericForm'
+import superagent from 'superagent'
+import { buildApiLink, buildLink } from '../libs/linkBuilder'
+
 type TNewListForm = {
     description: string
     editable: boolean,
-
 }
 
 export default () => {
@@ -16,12 +18,14 @@ export default () => {
       <GenericForm
         initialValues={{ description: '', editable: true }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log("SU>BMIT")
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            navigate('/shared/abc')
-            setSubmitting(false);
-          }, 400);
+          superagent
+            .post(buildApiLink("/shopping-list"))
+            .send(values)
+            .then(res => {
+              if (res.statusCode === 200) {
+                navigate(buildLink("/shared/"+ res.body._id))
+              }
+            })
         }}>
           {({
           values,

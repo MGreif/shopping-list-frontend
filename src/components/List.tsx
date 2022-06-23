@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useCallback, useState } from 'react'
 import { useListContext } from '../hooks/useListContext'
 import { randomString } from '../libs/mockGenerator'
@@ -7,7 +8,7 @@ import { IBuyableItem, IListItem, ListItem } from './ListItem'
 
 export interface IList {
     id: string,
-    listItems: IListItem[]
+    items: IListItem[]
     editable: boolean
     lastEdited: Date
     description: string
@@ -16,9 +17,16 @@ export interface IList {
 export default () => {
 
     const list: IList = useListContext()
-
-    const [listItems, setListItems] = useState<IListItem[]>(list.listItems)
-
+    console.log("list", list)
+    if (!list) return null
+    
+    const [listItems, setListItems] = useState<IListItem[]>(list?.items || [])
+    
+    useEffect(() => {
+      if (list) {
+        setListItems(list.items)
+      }
+    }, [list])
 
     // Probably useless. We gonna refetch on change and instantly POST the changes to the service
 
@@ -48,7 +56,7 @@ export default () => {
             <AddItemButton onAdd={addListItem} />
             <div className={classes.list}>
                 {
-                    listItems.length === 0 && <span>No</span>
+                    listItems.length === 0 && <span>No Items</span>
                 }
                 {listItems.map(data =>
                     <ListItem

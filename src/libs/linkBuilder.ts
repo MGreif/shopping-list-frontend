@@ -1,5 +1,5 @@
 const BASE_URL = "/"
-const BASE_API_URL = "/api"
+const BASE_API_URL = import.meta.env.VITE_FRONTEND_SERVICE_URI
 
 
 export const buildLink = (value: string): string => {
