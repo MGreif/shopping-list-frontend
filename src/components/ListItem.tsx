@@ -5,7 +5,7 @@ import { checkIfVotedFor, toggleVoteInSessionStorage } from "../libs/sessionStor
 import classes from './ListItem.module.css'
 
 export interface IListItem {
-    id: string
+    _id: string
     buyableItem: IBuyableItem
     quantity: number
     votes: number
@@ -20,7 +20,7 @@ export interface IListItemProps {
 
 
 export interface IBuyableItem {
-    id: string,
+    _id: string,
     name: string,
     category: ECategory
     picture?: string
@@ -38,11 +38,12 @@ export enum ECategory {
 
 const ListItem: React.FC<IListItemProps> = ({listItem, onCheck}) => {
     const list = useListContext()
-    const userVotedForThisItem = checkIfVotedFor(list.id, listItem.id)
+    const userVotedForThisItem = checkIfVotedFor(list._id, listItem._id)
 
     const handleVote = () => {
-      toggleVoteInSessionStorage(list.id, listItem.id)
+      toggleVoteInSessionStorage(list._id, listItem._id)
     }
+    console.log("listitem", listItem)
 
     return <Group className={classes.container} position="apart" noWrap spacing="xl">
       <div className={classes.category}>{listItem.buyableItem.category.toString().substring(0,1)}</div>

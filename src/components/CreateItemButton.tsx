@@ -26,7 +26,6 @@ export default ({open, close, onSubmit, defaultValues}: TCreateItemModalProps) =
           {
             category: null,
             fluid: false,
-            id: randomString(5, "buyableItem-id"),
             name: null,
             ...defaultValues
         }}

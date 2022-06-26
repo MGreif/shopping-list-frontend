@@ -23,7 +23,7 @@ export const mockBuyableItem = (): IBuyableItem => {
     return {
         category: ECategory.SNACKS,
         fluid: randomBoolean(),
-        id: randomString(5, "buyableItem-id"),
+        _id: randomString(5, "buyableItem-id"),
         name: randomString(30, "name"),
     }
 }
@@ -32,7 +32,7 @@ export const mockListItem = (id?: string): IListItem => {
     return {
         bought: randomBoolean(),
         buyableItem: mockBuyableItem(),
-        id: id || randomString(5, "id"),
+        _id: id || randomString(5, "id"),
         quantity: randomInt(5),
         votes: randomInt(5)
     }
@@ -41,9 +41,9 @@ export const mockListItem = (id?: string): IListItem => {
 export const mockList: IList = {
     description: "Shopping list sarahs birthday",
     editable: false,
-    id: "TestList",
+    _id: "TestList",
     lastEdited: new Date(Date.now()),
-    listItems: [
+    items: [
         mockListItem("test1"),
         mockListItem("test2"),
         mockListItem("test3"),

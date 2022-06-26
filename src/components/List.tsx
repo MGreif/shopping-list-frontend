@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useCallback, useState } from 'react'
+import { createListItem } from '../gateway/rest/createListItem'
 import { useListContext } from '../hooks/useListContext'
 import { randomString } from '../libs/mockGenerator'
 import AddItemButton from './AddItemButton'
@@ -7,7 +8,7 @@ import classes from './List.module.css'
 import { IBuyableItem, IListItem, ListItem } from './ListItem'
 
 export interface IList {
-    id: string,
+    _id: string,
     items: IListItem[]
     editable: boolean
     lastEdited: Date
@@ -18,7 +19,6 @@ export default () => {
 
     const list: IList = useListContext()
     console.log("list", list)
-    if (!list) return null
     
     const [listItems, setListItems] = useState<IListItem[]>(list?.items || [])
     
@@ -37,18 +37,23 @@ export default () => {
             newList[indexOfItem].quantity = newList[indexOfItem].quantity + 1
             setListItems(newList)
         } else {
-            const newListItem: IListItem = {
+            const newListItem = {
                 bought: false,
-                buyableItem,
-                id: randomString(5, "id"),
+                buyableItem: buyableItem._id,
                 quantity: 1,
                 votes: 0
             }
-            setListItems([newListItem, ...listItems])
+            createListItem(list._id, newListItem).then(({ body }: { body: IListItem }) => {
+              const item = {...body, buyableItem}
+              setListItems([item, ...listItems])
+            }).catch((err) => {
+              console.error(err)
+            })
         }
     }, [listItems])
 
     //
+    if (!list) return null
 
     return <div className={classes.container}>
         <h1>{list.description}</h1>
